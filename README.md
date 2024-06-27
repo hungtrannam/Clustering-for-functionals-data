@@ -2,7 +2,7 @@
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/hungtrannam/Clustering-for-functionals-data)
 [![GitHub contributors](https://img.shields.io/github/contributors/hungtrannam/Clustering-for-functionals-data)](https://github.com/hungtrannam/Clustering-for-functionals-data/graphs/contributors)
 
-# PCF ToolBox for clustering the probability density functions&reg;
+# CDF ToolBox for clustering the probability density functions&reg;
 
 
 [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=UniprJRC/FSDA&project=FSDA.prj)
