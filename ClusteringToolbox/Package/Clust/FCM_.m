@@ -137,7 +137,7 @@ while iter < max_iter
             saveas(h, fig_filename);
         end
         subplot(1,2,2);
-        PlotCDEsContour(fvnew, labels);
+        PlotCDEsContour(fvnew, labels, param, iter);
     end
 
 

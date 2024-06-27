@@ -1,4 +1,4 @@
-function results = IFCM_(Data, param, varargin)
+function results = IFCM_Gauss(Data, param, varargin)
     
     if param.kClust <= 1
         error('The number of clusters (kClust) must be greater than 1 for clustering to be performed.');
@@ -125,9 +125,7 @@ U = ones(numCluster, numSample) ./ numCluster;
                 Unew(i, j) = numerator / denominator;
             end
         end
-        
-        % Calculate the cluster centers
-        fvnew = (f * Unew.^fm') ./ sum(Unew.^fm, 2)';
+
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % Plotting each iteration

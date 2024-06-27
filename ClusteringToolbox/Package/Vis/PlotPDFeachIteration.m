@@ -15,7 +15,7 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Setting
-colors = hsv(max(labels));
+colors = lines(max(labels));
 unique_labels = unique(labels);
 num_labels = numel(unique_labels);
 color_map = containers.Map(unique_labels, mat2cell(colors, ones(size(colors, 1), 1), size(colors, 2)));

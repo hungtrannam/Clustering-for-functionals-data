@@ -25,7 +25,7 @@ param.FvIni = 3;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Clustering via alg
 
-results = IFCM_(Data, param); 
+results = IFCM_(Data, param, 'Visualize', 'True'); 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -33,9 +33,9 @@ results = IFCM_(Data, param);
 % figure;
 % heatmap(results.Cluster.U);
 
-
-h = PlotPDFeachIteration(Data, results.Cluster.IDX, param.x); hold on;
-plot(param.x,results.Data.fv, "LineWidth", 3, "DisplayName", "Representative PDF"); hold off;
+% figure(1);
+% PlotPDFeachIteration(Data, results.Cluster.IDX, param.x); hold on;
+% plot(param.x,results.Data.fv, "LineWidth", 3, "DisplayName", "Representative PDF"); hold off;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Validation

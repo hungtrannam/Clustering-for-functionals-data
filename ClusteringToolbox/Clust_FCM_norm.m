@@ -23,16 +23,17 @@ addpath Data Figure_Output Package/Clust Package/Vis/ Package/Val/
 [Data, param.x, param.truelabels] = SimPDFAbnormal( ...
     { ...
     linspace(0, 3, 5*15), ...
+    linspace(9, 10, 5*2), ...
     linspace(5, 6, 5)}, ...
-    sqrt([.8, .5]));
+    sqrt([.8, .8, .5]));
 
 % FCM
 param.maxIter   = 200;                            % Maximum number of iterations
 param.mFuzzy    = 2;                              % Fuzziness parameter
 param.epsilon   = 1e-10;                          % Convergence criterion
-param.kClust    = 2;                              % Number of clusters
+param.kClust    = 3;                              % Number of clusters
 param.val       = 2;                              % Validation parameter
-param.FvIni     = 2;                              % Initial value for fuzziness parameter
+param.FvIni     = 3;                              % Initial value for fuzziness parameter
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Clustering via alg
