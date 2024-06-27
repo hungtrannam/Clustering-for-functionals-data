@@ -141,7 +141,7 @@ The PDF-format manual for the PCF Toolbox is available [here](https://github.com
 
 ### 4. How do I report a bug or suggest a feature?
 
-You can report bugs, suggest features, or start a discussion by creating a new issue [here]([link_to_issues](https://github.com/hungtrannam/Probabilistics-clustering-for-PDF/issues)).
+You can report bugs, suggest features, or start a discussion by creating a new issue [here]([link_to_issues](https://github.com/hungtrannam/Clustering-for-functionals-data/issues)).
 
 ### 5. Can I use the PCF Toolbox for commercial purposes?
 
@@ -157,7 +157,7 @@ If you have any questions, bug reports, comments, code contribtions, or construc
 
 ✉️ E-mail: hung.trannam@vlu.edu.vn for questions, comments, and code contribtions
 
-✉️ Create new issue in [issues](https://github.com/hungtrannam/Possibilistic-clustering-for-PDF/issues) for constructive discussions and bug reports
+✉️ Create new issue in [issues](https://github.com/hungtrannam/Clustering-for-functionals-data/issues) for constructive discussions and bug reports
 
 
 
@@ -165,7 +165,7 @@ If you have any questions, bug reports, comments, code contribtions, or construc
 
 -----------
 
-[![CC-BY-4.0](https://github.com/hungtrannam/Possibilistic-clustering-for-PDF/blob/main/images/cc-by-40.png)](https://creativecommons.org/licenses/by/4.0/)
+[![CC-BY-4.0](https://github.com/hungtrannam/Clustering-for-functionals-data/blob/main/images/cc-by-40.png)](https://creativecommons.org/licenses/by/4.0/)
 
 Copyright &copy; 2024, The MathWorks, Inc.
 
