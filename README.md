@@ -1,6 +1,6 @@
-![GitHub top language](https://img.shields.io/github/languages/top/hungtrannam/Possibilistic-clustering-for-PDF)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/hungtrannam/Possibilistic-clustering-for-PDF)
-[![GitHub contributors](https://img.shields.io/github/contributors/hungtrannam/Possibilistic-clustering-for-PDF)](https://github.com/hungtrannam/Possibilistic-clustering-for-PDF/graphs/contributors)
+![GitHub top language](https://img.shields.io/github/languages/top/hungtrannam/Clustering-for-functionals-data)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/hungtrannam/Clustering-for-functionals-data)
+[![GitHub contributors](https://img.shields.io/github/contributors/hungtrannam/Clustering-for-functionals-data)](https://github.com/hungtrannam/Clustering-for-functionals-data/graphs/contributors)
 
 # PCF ToolBox for clustering the probability density functions&reg;
 
