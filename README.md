@@ -13,7 +13,7 @@
 
 **Clustering** is a MATLAB module for paper **A new possibilistic-based clustering method for probability density functions and its application to detecting abnormal elements**.
 
-The project was started in 2023 by authors of Hung Tran-Nam, Thao Nguyen-Trang, and Ha Che-Ngoc.
+The project was started in 2023 by authors of Hung Tran-Nam
 
 Comprehensive detail of all functions is provided in the [PDF-format manual](https://github.com/hungtrannam/Possibilistic-clustering-for-PDF/blob/main/PCF-manual.pdf).
 
