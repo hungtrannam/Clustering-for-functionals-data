@@ -18,17 +18,29 @@ tic
 
 addpath Data Package/Clust Package/ToolBox Package/Val
 
-[Data, param.x, param.truelabels] = SimPDFAbnormal( ...
+param.h         = .03;
+param.x         = -5: param.h : 10;
+param.val       = 2;
+
+abnormal_params = {
+    {[0.15, 2.5], sqrt([.4, .4])}
+    {[0.3, 2.2], sqrt([.4, .4])}
+    };
+
+% Simulate data and true labels using the SimPDFAbnormal function
+[Data, param.truelabels] = SimPDFAbnormal( ...
     { ...
-    linspace(0, 1, 10*10), ...
-    linspace(3, 4, 10)}, ...
-    sqrt([.5, .5]));
+    linspace(0, 1, 10*100), ...
+    linspace(4, 5, 10)}, ...
+    sqrt([.5, .5]), ...
+    param.x);
+
 
 
 X = Data';
 
 % X= pdf';
-k = 2;
+k = 20;
 CostFunction=@(s) ClusteringCost(s, X);     % Cost Function
 VarSize=[k size(X,2)+1];  % Decision Variables Matrix Size
 nVar=prod(VarSize);     % Number of Decision Variables
@@ -36,7 +48,7 @@ VarMin= repmat([min(X) 0],k,1);      % Lower Bound of Variables
 VarMax= repmat([max(X) 1],k,1);      % Upper Bound of Variables
 
 
-MaxIt=300;      % Maximum Number of Iterations
+MaxIt=600;      % Maximum Number of Iterations
 nPop=50;        % Population Size (Swarm Size)
 w=1;            % Inertia Weight
 wdamp=0.99;     % Inertia Weight Damping Ratio
@@ -155,4 +167,10 @@ ylabel('Best Cost');
 grid on;
 
 
-h = PlotPDFeachIteration(Data,BestSol.Out.ind', param.x);
+figure;
+PlotPDFeachIteration(Data,BestSol.Out.ind', param.x);
+
+
+results.Data.Data   = Data;
+results.Cluster.IDX = BestSol.Out.ind;
+results             = validityClustering(results, param);

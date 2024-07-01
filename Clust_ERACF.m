@@ -9,21 +9,27 @@ addpath Data Figure_Output Package/Clust Package/Vis/ Package/Val/
 % Setting
 
 % Data
-% [Data, param.x, param.truelabels] = SimPDFAbnormal_Uniform( ...
-%     { ...
-%     linspace(2, 6, 10*9), ...
-%     linspace(7, 7.5, 10), ...
-%     }, ...
-%     sqrt([2, .2]));
+param.h         = .03;
+param.x         = -5: param.h : 10;
+param.val       = 2;
 
+abnormal_params = {
+    {[0.15, 2.5], sqrt([.4, .4])}
+    {[0.3, 2.2], sqrt([.4, .4])}
+    };
 
-[Data, param.x, param.truelabels] = SimPDFAbnormal( ...
+% Simulate data and true labels using the SimPDFAbnormal function
+[Data, param.truelabels] = SimPDFAbnormal( ...
     { ...
-    linspace(0, 3, 5*10), ...
-    linspace(5, 6, 5)}, ...
-    sqrt([.8, .5]));
+    linspace(0, 1, 10*50), ...
+    linspace(4, 5, 10), ...
+    linspace(6, 6.5, 10*10)}, ...
+    sqrt([.5, .5 .5]), ...
+    param.x);
+
+
 % FCM
-param.L       = 0.1;
+param.L       = 0.2;
 param.epsilon = 1e-10;
 param.maxIter = 500;
 param.val     = 2;
@@ -31,7 +37,7 @@ param.val     = 2;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Clustering via alg
 
-results       = ERACF_(Data, param, 'Visualize', 'True'); 
+results       = ERACF_(Data, param); 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -46,24 +52,3 @@ plot(param.x,results.Data.fv, "LineWidth", 3, "DisplayName", "Representative PDF
 
 results       = validityClustering(results, param);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-% options = fcmOptions(...
-% NumClusters=2,...
-% Exponent=2.0,...
-% Verbose=true,
-% DistanceMetric = 'fmle');
-% [centers,U,objFcn,info] = fcm(Data',options);

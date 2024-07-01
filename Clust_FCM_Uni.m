@@ -8,43 +8,41 @@ addpath Data Figure_Output Package/Clust Package/Vis/ Package/Val/
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Setting
 
-% Data
-% abnormal_params = {
-%     {[0.15, 2.5], sqrt([.4, .4])} 
-%     {[0.3, 2.2], sqrt([.4, .4])}
-%     };
-% 
-% [Data, param.x, param.truelabels] = SimPDFAbnormal( ...
-%     { ...
-%     linspace(-1, 1, 10*90), ...
-%     linspace(3, 4, 10)}, ...
-%     sqrt([.5, .5]));
+param.h         = 0.001;
+param.x         = 0: param.h : 15;
 
-[Data, param.x, param.truelabels] = SimPDFAbnormal( ...
+
+% Data
+[Data, param.truelabels] = SimPDFAbnormal_Uniform( ...
     { ...
-    linspace(0, 3, 5*15), ...
-    linspace(9, 10, 5*2), ...
-    linspace(5, 6, 5)}, ...
-    sqrt([.8, .8, .5]));
+    linspace(2, 5, 5*50), ...
+    linspace(8, 8.5, 5), ...
+    }, ...
+    sqrt([1, .8]), ...
+    param.x);
+
 
 % FCM
 param.maxIter   = 200;                            % Maximum number of iterations
 param.mFuzzy    = 2;                              % Fuzziness parameter
 param.epsilon   = 1e-10;                          % Convergence criterion
-param.kClust    = 3;                              % Number of clusters
+param.kClust    = 2;                              % Number of clusters
 param.val       = 2;                              % Validation parameter
 param.FvIni     = 3;                              % Initial value for fuzziness parameter
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Clustering via alg
 
-results = IFCM_(Data, param, 'Visualize', 'True'); 
+results = IFCM_(Data, param); 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Plotting
-% figure;
-% heatmap(results.Cluster.U);
+
+figure(1);
+PlotPDFeachIteration(Data, results.Cluster.IDX, param.x); hold on;
+plot(param.x,results.Data.fv, "LineWidth", 3, "DisplayName", "Representative PDF");
+hold off;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Validation

@@ -21,23 +21,26 @@ addpath Data Figure_Output Package/Clust Package/Vis/ Package/Val
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Setting
 
+param.h         = .03;
+param.x         = -5: param.h : 10;
+param.val       = 2;
+
 abnormal_params = {
-    {[0.15, 2.7], sqrt([.4, .4])} 
-    {[0.3, 2.9], sqrt([.4, .4])}
+    {[0.15, 2.5], sqrt([.4, .4])}
+    {[0.3, 2.2], sqrt([.4, .4])}
     };
 
-[Data, param.x, param.truelabels] = SimPDFAbnormal( ...
+% Simulate data and true labels using the SimPDFAbnormal function
+[Data, param.truelabels] = SimPDFAbnormal( ...
     { ...
-    linspace(0, 0.5, 5*25), ...
-    linspace(2.5, 3, 5),
-    }, ...
-    sqrt([.4, .4]), abnormal_params);
-    % abnormal_params ...
-
+    linspace(0, 1, 10*100), ...
+    linspace(4, 5, 10)}, ...
+    sqrt([.5, .5]), ...
+    param.x);
 
 %% Run DBSCAN Clustering Algorithm
 param.epsilon = 1;
-param.MinPts  = 5;
+param.MinPts  = 10;
 param.val = 2;
 
 results = DBSCAN_(Data', param);

@@ -2,7 +2,7 @@
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/hungtrannam/Clustering-for-functionals-data)
 [![GitHub contributors](https://img.shields.io/github/contributors/hungtrannam/Clustering-for-functionals-data)](https://github.com/hungtrannam/Clustering-for-functionals-data/graphs/contributors)
 
-# PCF ToolBox for clustering the probability density functions&reg;
+# CDF ToolBox for clustering the probability density functions&reg;
 
 
 [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=UniprJRC/FSDA&project=FSDA.prj)
@@ -11,9 +11,9 @@
 
 ## 🌟 Overview
 
-**PCF** is a MATLAB module for paper **A new possibilistic-based clustering method for probability density functions and its application to detecting abnormal elements**.
+**Clustering** is a MATLAB module for clustering functional data such as time seties and probability density functions
 
-The project was started in 2023 by authors of Hung Tran-Nam, Thao Nguyen-Trang, and Ha Che-Ngoc.
+The project was started in 2023 by authors of Hung Tran-Nam
 
 Comprehensive detail of all functions is provided in the [PDF-format manual](https://github.com/hungtrannam/Possibilistic-clustering-for-PDF/blob/main/PCF-manual.pdf).
 

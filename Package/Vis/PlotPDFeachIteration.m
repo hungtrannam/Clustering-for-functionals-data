@@ -10,7 +10,7 @@ function PlotPDFeachIteration(data, labels, x)
 
 % Check if x is provided, if not, create a default vector
 if nargin < 3
-    x = linspace(-.5, 1.5, 500);
+    x = linspace(2, 15, 500);
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%

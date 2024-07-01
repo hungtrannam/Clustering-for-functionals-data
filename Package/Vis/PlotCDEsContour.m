@@ -1,4 +1,4 @@
-function h = PlotCDEsContour(fvnew, labels, param, iter)
+function PlotCDEsContour(fvnew, labels, param, iter)
     % Calculate mean and standard deviation
     x = param.x;
 
@@ -16,12 +16,14 @@ function h = PlotCDEsContour(fvnew, labels, param, iter)
 
     % Plot centroids
     for k = 1:numCluster
-    scatter(iter, v_mean(k), 72, colors(k,:), 'filled', "DisplayName", "Centroids");  % 72 is the marker size
+    scatter(iter, v_mean(k), 72, colors(k,:), 'filled', "DisplayName", "Prototypes");  % 72 is the marker size
     end 
 
     % Add labels and title
     xlabel('Iteration');
     ylabel('Mean');
-    ylim([-5,10]);
+    ylim([-5,15]);
     title(sprintf('Mean of prototype PDFs over the %d iterations', iter));
+
+    hold off;
 end

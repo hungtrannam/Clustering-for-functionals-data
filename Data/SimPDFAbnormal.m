@@ -1,6 +1,6 @@
-function [Data, x, labels] = SimPDFAbnormal_Uniform(mu_ranges, sig_values, abnormal_params)
-% SimPDFAbnormal_Uniform generates and plots PDFs for multiple sets of distributions
-% with specified ranges for the uniform distribution, including optional
+function [Data, labels] = SimPDFAbnormal(mu_ranges, sig_values, grid, abnormal_params)
+% SimPDFAbnormal generates and plots PDFs for multiple sets of distributions
+% with specified means and standard deviations, including optional
 % "abnormal" distributions.
 %
 % Parameters:
@@ -14,6 +14,9 @@ function [Data, x, labels] = SimPDFAbnormal_Uniform(mu_ranges, sig_values, abnor
 % Data   : Matrix of generated PDFs without labels
 % x      : X-axis values for plotting the PDFs
 % labels : Labels indicating the set to which each PDF belongs
+% f      : PDFs with labels
+
+close all;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % EXAMPLE
@@ -21,14 +24,13 @@ function [Data, x, labels] = SimPDFAbnormal_Uniform(mu_ranges, sig_values, abnor
 % mu_ranges = {0.25:0.01:0.35, 0.75:0.01:0.8};
 % sig_values = [0.2, 0.2];
 % abnormal_params = {
-%     {[0.4, 0.5], [0.1, 0.2]}
-%     {[0.6, 0.7], [0.1, 0.2]}
+%     {[mu1, mu2], [sig1, sig2]}
+%     {[mu1, mu2], [sig1, sig2]}
 % };
-% [Data, x, labels] = SimPDFAbnormal_Uniform(mu_ranges, sig_values, abnormal_params);
+% [Data, x, labels, f] = SimPDFAbnormal(mu_ranges, sig_values, abnormal_params);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Setting
-x = linspace(0, 10, 1000);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Simulation
@@ -40,10 +42,7 @@ labels = [];
 for group = 1:num_groups
     mu_range = mu_ranges{group};
     for i = 1:length(mu_range)
-        % Define the bounds for the uniform distribution
-        a = mu_range(i) - sig_values(group);
-        b = mu_range(i) + sig_values(group);
-        f_single = unifpdf(x, a, b);
+        f_single = normpdf(grid, mu_range(i), sig_values(group));
         pdfs = [pdfs; f_single];
         labels = [labels; group];
     end
@@ -55,15 +54,12 @@ if exist('abnormal_params', 'var') && iscell(abnormal_params)
         if iscell(abnormal_mu_sig) && numel(abnormal_mu_sig) == 2
             mus = abnormal_mu_sig{1};
             sigmas = abnormal_mu_sig{2};
-            abnormal_pdf = zeros(1, length(x));
+            abnormal_pdf = zeros(1, length(grid));
             for i = 1:length(mus)
-                % Define the bounds for the uniform distribution
-                a = mus(i) - sigmas(i);
-                b = mus(i) + sigmas(i);
-                abnormal_pdf = abnormal_pdf + unifpdf(x, a, b);
+                abnormal_pdf = abnormal_pdf + normpdf(grid, mus(i), sigmas(i));
             end
             pdfs = [pdfs; abnormal_pdf];
-            labels = [labels; num_groups + 1]; % Label for "abnormal" group
+            labels = [labels; num_groups + 1]; % Gán nhãn cho nhóm "abnormal"
         end
     end
 end
@@ -72,11 +68,11 @@ Data = pdfs';
 labels = labels';
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Plotting (uncomment if needed for visualization)
+% Plotting
 
 % figure;
 % hold on;
-% colors = hsv(num_groups + length(abnormal_params)); % Generate color map
+% colors = hsv(num_groups + length(abnormal_params)); % Tạo bảng màu
 % for group = 1:max(labels)
 %     group_pdfs = pdfs(labels == group, :);
 %     for i = 1:size(group_pdfs, 1)
@@ -89,9 +85,9 @@ labels = labels';
 % hold off;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Saving (uncomment if needed for saving the data)
+% Saving
 
-% name = sprintf("Sim_%d_%d.mat", max(labels), size(pdfs, 2));
+% name = sprintf("Sim_%d_%d.mat", max(labels), size(pdf, 2));
 % save(name, "pdfs", "x", "labels");
 
 end

@@ -28,9 +28,6 @@ function results = IFCM_(Data, param, varargin)
     end
 
 
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % Clustering 
-
 %% Initialize the partition matrix with FCM
 if param.FvIni == 1
     fv = f(:, randperm(numSample, numCluster));
@@ -60,7 +57,7 @@ elseif param.FvIni == 3
 
             for j = 1:i-1
                 % distance = 2 - trapz(x, min(fv(:, j), f(:, tt)));
-                distance = 1 - trapz(x, min(fv(:, j), f(:, tt)));
+                distance = 1 - Integration(param.h, min(fv(:, j), f(:, tt)), 1);
                 % distance = trapz(x, fv(:,j) .* log(fv(:,j) ./ f(:,tt)));
                 if distance < min_distance_threshold
                     valid = false;
@@ -96,13 +93,15 @@ U = ones(numCluster, numSample) ./ numCluster;
         % Calculate the distance between fv with fi PDFs
         for j = 1:numSample
             for i = 1:numCluster
-                Wf(i, j) = trapz(x, abs(fv(:, i) - f(:, j))) + 10^(-10); % L1  
-                % Wf(i,j) = 1 - trapz(x, min(fv(:, i), f(:, j)))+ 10^(-10); % Intersection
+                % Wf(i, j) = Integration(param.h, abs(fv(:, i) - f(:, j)), 1) + 10^(-10); % L1  
+                % Wf(i, j) = 1 - Integration(param.h, min(fv(:, i), f(:, j)), 1) + 10^(-10);
+                % Wf(i, j) = Integration(param.h, fv(:,i) .* log(fv(:,i) ./ f(:,j)), 1) + 10^(-10);
+                Wf(i,j) = (Integration(param.h, abs(fv(:, i) - f(:, j)),1) + max(abs(fv(:, i) - f(:, j)))) / 2 + 10^(-10);
+
 
                 % Wf(i,j) = trapz(x, (fv(:, i) - f(:, j)).^2 ./ max(fv(:, i), f(:, j))) + 10^(-10); % Vicissitude chi^2
                 % Wf(i,j) = trapz(x, (fv(:, i) - f(:, j)).^2 ./ max(fv(:, i), f(:, j))) + 10^(-10); % Vicissitude chi^2
                 % Wf(i, j) = trapz(x, fv(:,i) .* log(fv(:,i) ./ f(:,j))) + 10^(-10); % Kullback-Leibler
-                % Wf(i, j) = (2 - trapz(x, max(fv(:, i), f(:, j)))) + 10^(-10); % Overlap
                 % Wf(i, j) = 2 * (1 - (1/2) * trapz(param.x, max(fv(:,i), f(:,j)))) + 10^(-10); % SCC
                 % Wf(i,j) = trapz(x, (fv(:, i) - f(:, j)).^2 ./ fv(:, i)) + 10^(-10); % Neyman chi^2
                 % Wf(i,j) = min(trapz(x, (fv(:, i) - f(:, j)).^2 ./ fv(:, i)), trapz(x, (fv(:, i) - f(:, j)).^2 ./ f(:, j))) + 10^(-10);

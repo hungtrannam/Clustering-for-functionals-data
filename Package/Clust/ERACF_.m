@@ -28,7 +28,7 @@ end
 for i = 1:numSample
     for j = 1:numSample
         if i ~= j
-            Wf(i, j) = trapz(x, abs(f(:, i) - f(:, j)));
+            Wf(i, j) = Integration(param.h, abs(f(:, i) - f(:, j)), 1) + 10^(-10); % L1  
         else
             % Distance between a PDF and itself should be a small positive number
             Wf(i, j) = 10^(-10);
@@ -76,7 +76,7 @@ while iter < max_iter
         for j = 1:numSample
             if i ~= j
                 % L1 distance between PDFs i and j
-                Wf(i, j) = trapz(x, abs(f(:, i) - f(:, j)));
+                Wf(i, j) = Integration(param.h, abs(f(:, i) - f(:, j)), 1) + 10^(-10); % L1  
             else
                 % Distance between a PDF and itself should be a small positive number
                 Wf(i, j) = 10^(-10);
@@ -159,44 +159,24 @@ for i = 1:size(IDX,1)
     end
 end
 
-fv      = zeros(size(fnew, 1), max(IDX));
-tt      = randi([1, size(fnew,2)], 1, 1);
-fv(:,1) = fnew(:,tt);
 
-min_distance_threshold = 0.000001; % Define a minimum distance threshold
+fvnew = round(fnew, 4);
+fv    = [];
 
-for i = 2:max(IDX)
-    max_distance = -inf;
-    best_tt = -1;
-    attempts = 0;
-    max_attempts = 1000;
-
-    while attempts < max_attempts
-        tt = randi([1, size(fnew,2)], 1, 1);
-        nearest = inf;
-        valid = true;
-
-        for j = 1:i-1
-            distance = 2 - trapz(x, min(fv(:, j), fnew(:, tt)));
-            if distance < min_distance_threshold
-                valid = false;
-                break;
-            end
-            nearest = min(nearest, distance);
+for i = 1:numSample
+    fvnewsort = fvnew(:, i);
+    
+    Overlap = false;
+    for j = 1:size(fv, 2)
+        if isequal(fvnewsort, fv(:, j))
+            Overlap = true;
+            break;
         end
-
-        if valid && nearest > max_distance
-            max_distance = nearest;
-            best_tt = tt;
-        end
-
-        attempts = attempts + 1;
     end
-
-    if best_tt ~= -1
-        fv(:, i) = fnew(:, best_tt);
-    else
-        error('Could not find a valid initial center. Try increasing max_attempts or adjusting min_distance_threshold.');
+    
+    % Nếu không trùng lặp, thêm cột vào B
+    if ~Overlap
+        fv = [fv fvnewsort];
     end
 end
 
